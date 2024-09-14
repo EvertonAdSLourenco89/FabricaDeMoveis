@@ -1,18 +1,15 @@
-import { Component } from '@angular/core';
-import { bootstrapApplication } from '@angular/platform-browser';
+// src/main.ts
+import { Cadeira } from './Cadeira';
+import { Sofa } from './Sofa';
+import { MesaDeCentro } from './MesaDeCentro';
 
-@Component({
-  selector: 'app-root',
-  standalone: true,
-  template: `
-    <h1>Hello from {{ name }}!</h1>
-    <a target="_blank" href="https://angular.dev/overview">
-      Learn more about Angular
-    </a>
-  `,
-})
-export class App {
-  name = 'Angular';
-}
+const cadeiraVitoriana = new Cadeira("vermelho", "Vitoriano", "madeira", 500);
+const sofaVitoriano = new Sofa("vermelho", "Vitoriano", "madeira", 1200);
+const mesaModerna = new MesaDeCentro("redonda", "vidro", 0.5, 300);
 
-bootstrapApplication(App);
+console.log("A cadeira combina com o sofá? ", cadeiraVitoriana.combinaCom(sofaVitoriano));
+console.log("A cadeira combina com a mesa? ", mesaModerna.combinaCom(cadeiraVitoriana));
+console.log("Preço da cadeira com desconto de 10%: R$", cadeiraVitoriana.calcularDesconto(10));
+console.log("Preço do sofá com frete de R$200: R$", sofaVitoriano.calcularPrecoComFrete(200));
+console.log("Área da mesa: ", mesaModerna.calcularArea());
+
