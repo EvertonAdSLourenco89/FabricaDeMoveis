@@ -18,11 +18,80 @@
             padding: 15px;
             border-radius: 5px;
         }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input {
+            padding: 5px;
+            width: 100%;
+            box-sizing: border-box;
+        }
     </style>
 </head>
 <body>
     <h1>Loja de Móveis</h1>
-    
+
+    <h2>Dados da Cadeira</h2>
+    <div class="form-group">
+        <label for="corCadeira">Cor:</label>
+        <input type="text" id="corCadeira" placeholder="Ex: Vermelho">
+    </div>
+    <div class="form-group">
+        <label for="estiloCadeira">Estilo:</label>
+        <input type="text" id="estiloCadeira" placeholder="Ex: Vitoriano">
+    </div>
+    <div class="form-group">
+        <label for="materialCadeira">Material:</label>
+        <input type="text" id="materialCadeira" placeholder="Ex: Madeira">
+    </div>
+    <div class="form-group">
+        <label for="precoCadeira">Preço (R$):</label>
+        <input type="number" id="precoCadeira" placeholder="Ex: 500">
+    </div>
+
+    <h2>Dados do Sofá</h2>
+    <div class="form-group">
+        <label for="corSofa">Cor:</label>
+        <input type="text" id="corSofa" placeholder="Ex: Vermelho">
+    </div>
+    <div class="form-group">
+        <label for="estiloSofa">Estilo:</label>
+        <input type="text" id="estiloSofa" placeholder="Ex: Vitoriano">
+    </div>
+    <div class="form-group">
+        <label for="materialSofa">Material:</label>
+        <input type="text" id="materialSofa" placeholder="Ex: Madeira">
+    </div>
+    <div class="form-group">
+        <label for="precoSofa">Preço (R$):</label>
+        <input type="number" id="precoSofa" placeholder="Ex: 1200">
+    </div>
+
+    <h2>Dados da Mesa de Centro</h2>
+    <div class="form-group">
+        <label for="formatoMesa">Formato:</label>
+        <input type="text" id="formatoMesa" placeholder="Ex: Redonda">
+    </div>
+    <div class="form-group">
+        <label for="materialMesa">Material:</label>
+        <input type="text" id="materialMesa" placeholder="Ex: Vidro">
+    </div>
+    <div class="form-group">
+        <label for="raioMesa">Raio (m):</label>
+        <input type="number" id="raioMesa" placeholder="Ex: 0.5">
+    </div>
+    <div class="form-group">
+        <label for="precoMesa">Preço (R$):</label>
+        <input type="number" id="precoMesa" placeholder="Ex: 300">
+    </div>
+
+    <button onclick="criarObjetos()">Criar Móveis</button>
+
+    <h3>Ações</h3>
     <button onclick="executarCadeiraSofa()">Verificar se a cadeira combina com o sofá</button>
     <button onclick="executarCadeiraMesa()">Verificar se a cadeira combina com a mesa</button>
     <button onclick="calcularDescontoCadeira()">Calcular desconto da cadeira</button>
@@ -36,33 +105,79 @@
         import { Sofa } from './Sofa.js';
         import { MesaDeCentro } from './MesaDeCentro.js';
 
-        const cadeiraVitoriana = new Cadeira("vermelho", "Vitoriano", "madeira", 500);
-        const sofaVitoriano = new Sofa("vermelho", "Vitoriano", "madeira", 1200);
-        const mesaModerna = new MesaDeCentro("redonda", "vidro", 0.5, 300);
+        let cadeiraVitoriana;
+        let sofaVitoriano;
+        let mesaModerna;
 
         const resultado = document.getElementById("resultado");
 
+        function criarObjetos() {
+            // Pega os valores dos campos de entrada
+            const corCadeira = document.getElementById("corCadeira").value;
+            const estiloCadeira = document.getElementById("estiloCadeira").value;
+            const materialCadeira = document.getElementById("materialCadeira").value;
+            const precoCadeira = parseFloat(document.getElementById("precoCadeira").value);
+
+            const corSofa = document.getElementById("corSofa").value;
+            const estiloSofa = document.getElementById("estiloSofa").value;
+            const materialSofa = document.getElementById("materialSofa").value;
+            const precoSofa = parseFloat(document.getElementById("precoSofa").value);
+
+            const formatoMesa = document.getElementById("formatoMesa").value;
+            const materialMesa = document.getElementById("materialMesa").value;
+            const raioMesa = parseFloat(document.getElementById("raioMesa").value);
+            const precoMesa = parseFloat(document.getElementById("precoMesa").value);
+
+            // Cria os objetos
+            cadeiraVitoriana = new Cadeira(corCadeira, estiloCadeira, materialCadeira, precoCadeira);
+            sofaVitoriano = new Sofa(corSofa, estiloSofa, materialSofa, precoSofa);
+            mesaModerna = new MesaDeCentro(formatoMesa, materialMesa, raioMesa, precoMesa);
+
+            // Exibe uma mensagem confirmando a criação dos móveis
+            resultado.innerHTML = "Móveis criados com sucesso!";
+        }
+
         function executarCadeiraSofa() {
+            if (!cadeiraVitoriana || !sofaVitoriano) {
+                resultado.innerHTML = "Por favor, crie os móveis antes de continuar.";
+                return;
+            }
             const mensagem = `A cadeira combina com o sofá? ${cadeiraVitoriana.combinaCom(sofaVitoriano)}`;
             resultado.innerHTML = mensagem;
         }
 
         function executarCadeiraMesa() {
+            if (!cadeiraVitoriana || !mesaModerna) {
+                resultado.innerHTML = "Por favor, crie os móveis antes de continuar.";
+                return;
+            }
             const mensagem = `A cadeira combina com a mesa? ${mesaModerna.combinaCom(cadeiraVitoriana)}`;
             resultado.innerHTML = mensagem;
         }
 
         function calcularDescontoCadeira() {
+            if (!cadeiraVitoriana) {
+                resultado.innerHTML = "Por favor, crie os móveis antes de continuar.";
+                return;
+            }
             const desconto = cadeiraVitoriana.calcularDesconto(10);
             resultado.innerHTML = `Preço da cadeira com desconto de 10%: R$ ${desconto}`;
         }
 
         function calcularFreteSofa() {
+            if (!sofaVitoriano) {
+                resultado.innerHTML = "Por favor, crie os móveis antes de continuar.";
+                return;
+            }
             const precoComFrete = sofaVitoriano.calcularPrecoComFrete(200);
             resultado.innerHTML = `Preço do sofá com frete de R$200: R$ ${precoComFrete}`;
         }
 
         function calcularAreaMesa() {
+            if (!mesaModerna) {
+                resultado.innerHTML = "Por favor, crie os móveis antes de continuar.";
+                return;
+            }
             const areaMesa = mesaModerna.calcularArea();
             resultado.innerHTML = `Área da mesa: ${areaMesa}`;
         }
