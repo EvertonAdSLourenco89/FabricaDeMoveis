@@ -1,11 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>My app</title>
-    <meta charset="UTF-8" />
-    <base href="/">
-  </head>
-  <body>
-    <app-root>Loading...</app-root>
-  </body>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loja de Móveis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        button {
+            margin: 10px 0;
+        }
+        .output {
+            margin-top: 20px;
+            background-color: #f0f0f0;
+            padding: 15px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Loja de Móveis</h1>
+    
+    <button onclick="executarCadeiraSofa()">Verificar se a cadeira combina com o sofá</button>
+    <button onclick="executarCadeiraMesa()">Verificar se a cadeira combina com a mesa</button>
+    <button onclick="calcularDescontoCadeira()">Calcular desconto da cadeira</button>
+    <button onclick="calcularFreteSofa()">Calcular preço do sofá com frete</button>
+    <button onclick="calcularAreaMesa()">Calcular área da mesa</button>
+
+    <div class="output" id="resultado"></div>
+
+    <script type="module">
+        import { Cadeira } from './Cadeira.js';
+        import { Sofa } from './Sofa.js';
+        import { MesaDeCentro } from './MesaDeCentro.js';
+
+        const cadeiraVitoriana = new Cadeira("vermelho", "Vitoriano", "madeira", 500);
+        const sofaVitoriano = new Sofa("vermelho", "Vitoriano", "madeira", 1200);
+        const mesaModerna = new MesaDeCentro("redonda", "vidro", 0.5, 300);
+
+        const resultado = document.getElementById("resultado");
+
+        function executarCadeiraSofa() {
+            const mensagem = `A cadeira combina com o sofá? ${cadeiraVitoriana.combinaCom(sofaVitoriano)}`;
+            resultado.innerHTML = mensagem;
+        }
+
+        function executarCadeiraMesa() {
+            const mensagem = `A cadeira combina com a mesa? ${mesaModerna.combinaCom(cadeiraVitoriana)}`;
+            resultado.innerHTML = mensagem;
+        }
+
+        function calcularDescontoCadeira() {
+            const desconto = cadeiraVitoriana.calcularDesconto(10);
+            resultado.innerHTML = `Preço da cadeira com desconto de 10%: R$ ${desconto}`;
+        }
+
+        function calcularFreteSofa() {
+            const precoComFrete = sofaVitoriano.calcularPrecoComFrete(200);
+            resultado.innerHTML = `Preço do sofá com frete de R$200: R$ ${precoComFrete}`;
+        }
+
+        function calcularAreaMesa() {
+            const areaMesa = mesaModerna.calcularArea();
+            resultado.innerHTML = `Área da mesa: ${areaMesa}`;
+        }
+    </script>
+</body>
 </html>

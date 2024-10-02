@@ -1,10 +1,12 @@
 {
   "name": "angular-starter",
   "private": true,
+  "type": "module",
+  "main": "dist/main.js",
   "scripts": {
     "ng": "ng",
-    "start": "tsc && node dist/main.js",
-    "build": "ng build"
+    "start": "node dist/main.js",
+    "build": "ng build"     
   },
   "dependencies": {
     "@angular/animations": "^18.1.0",
@@ -18,6 +20,7 @@
     "tslib": "^2.5.0",
     "zone.js": "~0.14.0"
   },
+  
   "devDependencies": {
     "@angular-devkit/build-angular": "^18.1.0",
     "@angular/cli": "^18.1.0",

@@ -1,4 +1,3 @@
-// src/main.ts
 import { Cadeira } from './Cadeira';
 import { Sofa } from './Sofa';
 import { MesaDeCentro } from './MesaDeCentro';
